@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function detectCurrentProfile() {
+  function detectCurrentProfile(retries = 2) {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tab = tabs[0];
       if (!tab || !tab.url) return;
@@ -99,9 +99,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!isFacebook && !isInstagram && !isLinkedin && !isTwitter) return;
 
       chrome.tabs.sendMessage(tab.id, { type: 'GET_PROFILE_DATA' }, (response) => {
-        if (chrome.runtime.lastError) return;
+        if (chrome.runtime.lastError) {
+          if (retries > 0) setTimeout(() => detectCurrentProfile(retries - 1), 1000);
+          return;
+        }
         if (response && response.data && (response.data.name || response.data.username)) {
           displayProfile(response.data);
+        } else if (retries > 0) {
+          setTimeout(() => detectCurrentProfile(retries - 1), 1000);
         }
       });
     });

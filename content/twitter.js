@@ -234,11 +234,32 @@
     }
   });
 
+  let lastUrl = window.location.href;
+
+  function onNavigate() {
+    document.querySelectorAll(`.${BUTTON_CLASS}`).forEach(el => el.remove());
+    document.querySelectorAll(`[${PROCESSED_ATTR}]`).forEach(el => el.removeAttribute(PROCESSED_ATTR));
+    setTimeout(init, 800);
+    setTimeout(init, 2000);
+    setTimeout(init, 4000);
+  }
+
   const observer = new MutationObserver(() => {
-    init();
+    const currentUrl = window.location.href;
+    if (currentUrl !== lastUrl) {
+      lastUrl = currentUrl;
+      onNavigate();
+    } else {
+      init();
+    }
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
+
+  window.addEventListener('popstate', () => {
+    lastUrl = window.location.href;
+    onNavigate();
+  });
 
   setTimeout(init, 2000);
   setTimeout(init, 5000);
