@@ -216,7 +216,9 @@
 
   function isProfilePage() {
     const path = window.location.pathname;
-    if (path === '/' || path === '/home.php' || path.startsWith('/groups/') ||
+    const isGroupUserProfile = /^\/groups\/[^/]+\/user\/\d+/.test(path);
+    if (path === '/' || path === '/home.php' ||
+        (path.startsWith('/groups/') && !isGroupUserProfile) ||
         path.startsWith('/events/') || path.startsWith('/marketplace/') ||
         path.startsWith('/watch') || path.startsWith('/gaming/') ||
         path.startsWith('/search/') || path.startsWith('/friends/') ||
