@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup Guide</title>
+  <link rel="stylesheet" href="popup.css">
+  <style>
+    body { width: 380px; max-height: 580px; overflow-y: auto; }
+    .guide-container { padding: 16px; }
+    .guide-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .guide-header h1 { font-size: 16px; font-weight: 700; color: #f8fafc; }
+    .back-btn { background: none; border: none; color: #94a3b8; cursor: pointer; padding: 4px; border-radius: 4px; display: flex; }
+    .back-btn:hover { background: #1e293b; color: #f1f5f9; }
+    .step { margin-bottom: 16px; padding: 12px; background: #1e293b; border: 1px solid #334155; border-radius: 8px; }
+    .step-number { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: #2563eb; color: #fff; border-radius: 50%; font-size: 11px; font-weight: 700; margin-right: 8px; flex-shrink: 0; }
+    .step-title { font-size: 13px; font-weight: 600; color: #f1f5f9; display: flex; align-items: center; margin-bottom: 6px; }
+    .step-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; padding-left: 30px; }
+    .step-desc code { background: #334155; padding: 1px 5px; border-radius: 3px; font-size: 11px; color: #e2e8f0; }
+    .note { margin-top: 14px; padding: 10px 12px; background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.25); border-radius: 8px; font-size: 11px; color: #93c5fd; line-height: 1.5; }
+    .note-title { font-weight: 600; margin-bottom: 4px; color: #60a5fa; }
+    .permissions-list { padding-left: 30px; margin-top: 4px; }
+    .permissions-list li { font-size: 11px; color: #94a3b8; margin-bottom: 2px; }
+    .separator { height: 1px; background: #1e293b; margin: 14px 0; }
+  </style>
+</head>
+<body>
+  <div class="guide-container">
+    <div class="guide-header">
+      <button class="back-btn" id="back-btn" title="Back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <h1>Setup Guide</h1>
+    </div>
+
+    <div class="step">
+      <div class="step-title"><span class="step-number">1</span> Open Settings</div>
+      <div class="step-desc">
+        In your CRM account, go to <code>Settings</code> (gear icon in the bottom left sidebar).
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-title"><span class="step-number">2</span> Find Private Integrations</div>
+      <div class="step-desc">
+        Navigate to <code>Settings</code> &gt; <code>Integrations</code> &gt; <code>Private Integrations</code>.<br><br>
+        If you do not see it, enable it under <code>Settings</code> &gt; <code>Labs</code> first.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-title"><span class="step-number">3</span> Create New Integration</div>
+      <div class="step-desc">
+        Click <code>Create new Integration</code>. Give it a name like &quot;Profile Saver&quot; and an optional description.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-title"><span class="step-number">4</span> Set Permissions</div>
+      <div class="step-desc">
+        Select these required scopes:
+        <ul class="permissions-list">
+          <li>Contacts &gt; Read/Write</li>
+          <li>Custom Fields &gt; Read/Write</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-title"><span class="step-number">5</span> Copy the Token</div>
+      <div class="step-desc">
+        After creating, you will see a token. <strong>Copy it immediately</strong> - you will not be able to see it again later.<br><br>
+        Paste it in the extension settings under &quot;Private Integration Token&quot;.
+      </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="step">
+      <div class="step-title"><span class="step-number">6</span> Get Your Location ID</div>
+      <div class="step-desc">
+        Go to <code>Settings</code> &gt; <code>Business Info</code>.<br><br>
+        Your Location ID is shown at the top of the page, or in the URL bar: <code>app.gohighlevel.com/v2/location/<strong>YOUR_ID</strong>/...</code>
+      </div>
+    </div>
+
+    <div class="note">
+      <div class="note-title">Important</div>
+      Old &quot;Location API Keys&quot; (from Settings &gt; Business Info &gt; API Key) no longer work. They were deprecated in Dec 2025. You must use a Private Integration Token as described above.
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('back-btn').addEventListener('click', () => {
+      window.location.href = 'popup.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "Social Profile Saver",
+  "version": "1.0.0",
+  "description": "Save social media profiles from Facebook, Instagram, and LinkedIn as contacts to your CRM",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://www.facebook.com/*",
+    "https://*.facebook.com/*",
+    "https://www.instagram.com/*",
+    "https://*.instagram.com/*",
+    "https://www.linkedin.com/*",
+    "https://*.linkedin.com/*",
+    "https://services.leadconnectorhq.com/*"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Save Profile to CRM"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.facebook.com/*",
+        "https://*.facebook.com/*"
+      ],
+      "js": ["content/facebook.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://www.instagram.com/*",
+        "https://*.instagram.com/*"
+      ],
+      "js": ["content/instagram.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://www.linkedin.com/*",
+        "https://*.linkedin.com/*"
+      ],
+      "js": ["content/linkedin.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
