@@ -94,8 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const isFacebook = url.includes('facebook.com');
       const isInstagram = url.includes('instagram.com');
       const isLinkedin = url.includes('linkedin.com');
+      const isTwitter = url.includes('x.com') || url.includes('twitter.com');
 
-      if (!isFacebook && !isInstagram && !isLinkedin) return;
+      if (!isFacebook && !isInstagram && !isLinkedin && !isTwitter) return;
 
       chrome.tabs.sendMessage(tab.id, { type: 'GET_PROFILE_DATA' }, (response) => {
         if (chrome.runtime.lastError) return;
@@ -124,6 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
       detailEl.textContent = data.bio || `@${data.username}` || '';
     } else if (data.platform === 'linkedin') {
       detailEl.textContent = data.headline || data.current_company || '';
+    } else if (data.platform === 'twitter') {
+      detailEl.textContent = data.bio || `@${data.username}` || '';
     }
 
     platformEl.textContent = data.platform;

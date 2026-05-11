@@ -240,6 +240,27 @@ function buildGHLContactBody(data, locationId) {
     }
 
     if (customFields.length) body.customFields = customFields;
+
+  } else if (data.platform === 'twitter') {
+    const nameParts = splitName(data.name);
+    body.firstName = nameParts.firstName;
+    body.lastName = nameParts.lastName;
+    body.name = data.name || data.username || '';
+    body.website = data.website || '';
+    body.tags = ['twitter', 'social-profile-saver'];
+
+    const customFields = [];
+    customFields.push({ key: 'twitter_profile_url', field_value: data.url });
+    if (data.username) customFields.push({ key: 'twitter_username', field_value: data.username });
+    if (data.profile_picture_url) customFields.push({ key: 'profile_picture', field_value: data.profile_picture_url });
+    if (data.followers) customFields.push({ key: 'twitter_followers', field_value: data.followers });
+    if (data.following) customFields.push({ key: 'twitter_following', field_value: data.following });
+    if (data.bio) customFields.push({ key: 'bio', field_value: data.bio });
+    if (data.location) body.city = data.location;
+    if (data.joined) customFields.push({ key: 'twitter_joined', field_value: data.joined });
+    if (data.is_verified) customFields.push({ key: 'is_verified', field_value: 'true' });
+
+    if (customFields.length) body.customFields = customFields;
   }
 
   return body;

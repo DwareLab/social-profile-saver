@@ -130,6 +130,7 @@ body {
 .profile-platform.facebook { background: #1877f2; }
 .profile-platform.instagram { background: #c13584; }
 .profile-platform.linkedin { background: #0a66c2; }
+.profile-platform.twitter { background: #000000; }
 
 .btn {
   width: 100%;
