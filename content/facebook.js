@@ -62,8 +62,18 @@
     const mainDiv = document.querySelector('div[role="main"]');
     if (!mainDiv) return data;
 
-    const h1 = document.querySelector('h1');
-    if (h1) data.name = h1.innerText.trim();
+    const FB_NAV_NAMES = new Set([
+      'home', 'facebook', 'watch', 'marketplace', 'gaming',
+      'groups', 'friends', 'events', 'pages', 'notifications',
+      'menu', 'search', 'messenger', 'bookmarks', 'memories'
+    ]);
+    const h1 = mainDiv.querySelector('h1') || document.querySelector('div[role="main"] h1');
+    if (h1) {
+      const h1Text = h1.innerText.trim();
+      if (h1Text && !FB_NAV_NAMES.has(h1Text.toLowerCase())) {
+        data.name = h1Text;
+      }
+    }
 
     // Profile picture: first SVG image INSIDE main (largest one, usually 168px)
     const mainSvgImages = mainDiv.querySelectorAll('svg image, image[preserveAspectRatio]');
@@ -210,13 +220,19 @@
         path.startsWith('/events/') || path.startsWith('/marketplace/') ||
         path.startsWith('/watch') || path.startsWith('/gaming/') ||
         path.startsWith('/search/') || path.startsWith('/friends/') ||
-        path.startsWith('/messages/') || path.startsWith('/notifications/')) return false;
+        path.startsWith('/messages/') || path.startsWith('/notifications/') ||
+        path.startsWith('/stories/') || path.startsWith('/reels/')) return false;
 
     const mainDiv = document.querySelector('div[role="main"]');
     if (!mainDiv) return false;
 
-    const h1 = document.querySelector('h1');
-    return !!h1;
+    const h1 = mainDiv.querySelector('h1');
+    if (!h1) return false;
+
+    const text = h1.innerText.trim().toLowerCase();
+    const navNames = ['home', 'facebook', 'watch', 'marketplace', 'gaming',
+      'groups', 'friends', 'events', 'pages', 'notifications', 'menu', 'search'];
+    return !navNames.includes(text);
   }
 
   function injectProfilePageButton() {
