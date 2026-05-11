@@ -223,11 +223,31 @@ body {
 .footer {
   text-align: center;
   padding-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .footer span {
   font-size: 10px;
   color: #475569;
+}
+
+.footer-separator {
+  font-size: 10px;
+  color: #334155;
+}
+
+.footer-credit {
+  font-size: 10px;
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.footer-credit:hover {
+  color: #93c5fd;
 }
 
 /* Modal styles */
